@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+		xmlns="http://www.springframework.org/schema/beans" 
+		xmlns:context="http://www.springframework.org/schema/context" 
+		xmlns:aop="http://www.springframework.org/schema/aop" 
+		xsi:schemaLocation="http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans.xsd 
+		http://www.springframework.org/schema/context 
+		http://www.springframework.org/schema/context/spring-context.xsd 
+		http://www.springframework.org/schema/aop 
+		http://www.springframework.org/schema/aop/spring-aop.xsd 
+		http://www.springframework.org/schema/tx 
+		http://www.springframework.org/schema/tx/spring-tx.xsd">
+		
+	<context:property-placeholder location="classpath:db.properties"/>
+	
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+	destroy-method="close">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<property name="url" value="jdbc:mysql://localhost:3306/blog_db?useUnicode=true&amp;characterEncoding=UTF-8" />
+		<property name="username" value="root" />
+		<property name="password" value="123456" />
+		<property name="maxActive" value="150"></property>
+		<property name="minIdle" value="5"></property>
+		<property name="maxIdle" value="20"></property>
+		<property name="initialSize" value="30"></property>
+		<property name="logAbandoned" value="true"></property>
+		<property name="removeAbandoned" value="true"></property>
+		<property name="removeAbandonedTimeout" value="10"></property>
+	</bean>
+
+<!-- 	spring和MyBatis完美整合，不需要mybatis的配置映射文件 -->
+	<bean id="sqlSFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="typeAliasesPackage" value="com.kw.entity" />
+		<property name="mapperLocations" value="classpath:mapper/*.xml"></property>
+	</bean>
+
+	<!-- DAO接口所在包名，Spring会自动查找其下的类 -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.kw.dao" />
+		
+	</bean>
+
+<!-- 	(事务管理)transaction manager, use JtaTransactionManager for global tx -->
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+</beans>

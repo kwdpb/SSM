@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base href="<%=basePath%>">
+    
+    <title>博客</title>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8"/>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+	<link href="css/blogindex.css" rel="stylesheet">
+	<link rel="stylesheet" href="css/font-awesome-4.7.0/css/font-awesome.min.css"/>
+  </head>
+  
+  <body>
+    <nav class="navbar navbar-inverse">
+		<div class="container-fluid col-md-12">
+			<div class="col-md-8">
+		    <ul class="nav navbar-nav ">
+	          <li class="index"><a href="index.jsp">个人主页</a></li>
+	          <li><a href="tagblog.spring?categoryid=2" >MySQL相关</a></li>
+	          <li><a href="tagblog.spring?categoryid=3" >前端相关</a></li>
+	          <li><a href="tagblog.spring?categoryid=1">Java相关</a></li>
+	          <li><a href="#">关于网站</a></li>
+        	</ul>
+        	</div>
+        	<div class="col-md-4">
+	        <form action="searchblog.spring" method="GET" class="navbar-form navbar-right">
+	            <input name="keyword" class="form-control serach" placeholder="搜索文章">
+	            <input type="submit" value="搜索" class="btn btn-primary" >
+	        </form>
+	        </div>
+		</div>
+	</nav>
+    <!-- jQuery (Bootstrap 的所有 JavaScript 插件都依赖 jQuery，所以必须放在前边) -->
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
+    <script src="js/bootstrap.min.js"></script>
+  </body>
+</html>

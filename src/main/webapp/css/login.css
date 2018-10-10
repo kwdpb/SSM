@@ -1,0 +1,105 @@
+		 body{
+		 background:url(../img/bg5.jpg);
+     	 background-size:cover;
+		 }
+		/* 寮圭獥鏁堟灉 */
+		.cd-window{  /* 鐧诲綍绐楀彛 */
+			width:430px;
+			height:500px;
+			margin:2em auto;
+			background-color:#fff;
+			position: relative;
+			border-radius:15px;
+		}
+		.cd-login{
+			display: block;
+		}
+		.form-logo{
+			width:100%;
+			height:130px;
+		}
+		.form-logo span{
+			display: block;
+			text-align: center;
+			font-weight: bold;
+			font-size: 25px;
+			padding-top: 60px;
+			color:#1a1a1a;
+		}
+		.form-login {
+		    width:360px;
+		    height:90px;
+		    margin:0 auto;
+		    position: relative;
+		}
+
+		/* 鐢ㄦ埛鍚嶅瘑鐮佹 */
+		.form-login .username,.form-login .password{
+			width:299px;
+			height:45px;
+			font-size:18px;
+			padding-left: 60px;
+			border-radius: 25px;
+			outline:none;
+			border:1px solid #e1e1e1;
+		}
+
+		.form-login .input-border{  /* input鐨勭劍鐐瑰彉鑹�*/
+			box-shadow: 0 0 10px #285b87;
+		}
+		.form-login button{
+			width:360px;
+			height:50px;
+			border-radius: 25px;
+			font-size: 18px;
+			cursor: pointer;
+			border:0;
+			background-color: #337ab7;
+			color:white;
+			outline:none;
+		}
+		#login-btn:hover{
+			opacity: 0.8;
+		}
+		.switch{
+			right:0px;
+		}
+		.form-login a{
+			color:gray;
+			text-decoration:none;
+			position: absolute;
+		}
+
+		.form-login a:hover{
+			text-decoration:underline;
+			color:#1a1a1a;
+		}
+		.a-right{
+			right:0px;
+
+		}
+		#username{
+			background:url(../img/sign/user2.png) 11px -1px no-repeat;
+		}
+		#password{
+			background:url(../img/sign/lock2.png) 11px 1px no-repeat;
+		}
+
+
+		#warn{  /* 鐧诲綍閿欒鎻愮ずdiv */
+		  width:299px;
+		  height:33px;
+		  margin:0 auto;
+		  line-height: 33px;
+		  visibility: hidden;
+		}
+		#warn p{  /* 鎻愮ず淇℃伅 */
+			display: inline-block;
+			margin:0;
+			color:gray;
+		}
+
+		/* 鎵嬫満蹇嵎鐧诲綍 */
+		.cd-phonelogin{
+			display: none;
+		}

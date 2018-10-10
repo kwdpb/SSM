@@ -1,0 +1,117 @@
+<!Doctype html>
+<html>
+	<head>
+	 <meta charset="UTF-8">
+	 <title>后台登录界面</title>
+	 <link href="css/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet">
+	 <link href="css/login.css" type="text/css" rel="stylesheet"/>
+	 <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+	 <script>
+		$(function(){
+			$("body").bind("keydown",function(event){  /*绑定回车按钮登录*/
+				if(event.keyCode=="13")
+					$("#login-btn").click();
+			});
+		
+			$("#login-btn").on("click",function(){	/*登录验证*/
+				var user_v=$("#username").val(),
+				psw_v=$("#password").val(),
+				warn=$("#warn"),
+				error=$(".error");
+				warn.css({visibility: 'hidden'});
+				error.empty();
+				if(user_v.length>0){
+					if(psw_v.length>0){
+					  console.log("登录成功");
+					  check_user(user_v,psw_v);
+					}
+					else{
+					  warn.css({visibility: 'visible'});
+					  error.text("请输入密码");
+					}
+				}else if(psw_v.length==0){
+					warn.css({visibility: 'visible'});
+					error.text("用户名和密码不能为空");
+				}else{
+					warn.css({visibility: 'visible'});
+					error.text("请输入帐户");
+				}
+			});  
+
+			$("#username,#password").on("focus blur",function(){  /*input的焦点和失焦*/
+					$(this).toggleClass('input-border');
+			});
+
+			$(".switch").click(function(){   
+				$(".cd-login").hide();
+				$(".cd-phonelogin").show();
+			});
+
+		});  
+		
+		function check_user(user,psw){  /*验证用户密码是否正确*/
+			var warn=$("#warn");
+			var error=$(".error");
+			var auto=$("#autologin:checked").val();
+			$.post("checklogin.spring",{username:user,password:psw,autologin:auto},function(data){
+				/* 使用AJAX的请求方式中的Post方式 */
+				console.log(data);
+				if(data=="登录成功"){
+					window.location.href = "blogmanage.jsp";	
+				}else{
+					warn.css({visibility: 'visible'});
+					error.text(data);
+				}
+			});
+		}
+	 </script>
+	</head>
+	<body>
+			<div class="cd-window ">
+				<div class="cd-login">
+					<div class="form-logo">
+						<span>后台登陆界面</span>
+					</div>
+					<div id="warn">
+						<i class="fa fa-minus-square-o" style="color:red;"></i>
+						<p class="error"></p>
+					</div>
+					<div class="form-login">
+						<input type="text" autocomplete="off" id="username" class="username" placeholder="用户名/邮箱/手机号" 
+						/>
+					</div>
+					<div class="form-login">
+						<input type="password"  id="password" class="password" placeholder="密码" />
+					</div>
+					<div class="form-login">
+						<button id="login-btn">登录</button>
+						<p><input type="checkbox" name="autologin" id="autologin" value="autologin"/>
+						   <label for="autologin" >自动登录</label>
+						   <a href="javascript:;" class="switch">手机快捷登录</a>
+						</p>
+					</div>
+					<div class="form-login">
+						<p>
+							<a href="cancel.spring" >注销</a>
+							<a href="#" class="a-right">忘记密码</a>
+						</p>
+					</div>
+				</div>
+				<div class="cd-phonelogin">
+					<div class="logo">
+						<span>手机快捷登录</span>
+					</div>
+					<div class="form-div">
+						<input type="text" autocomplete="off" id="phoneuser" placeholder="手机号" />
+					</div>
+					<div class="form-div">
+						<input type="text" autocomplete="off" id="checkcode" placeholder="验证码" />
+						<a href="javascript:;">获取验证码</a>
+					</div>
+					<div class="form-div">
+						<button id="phonelogin-btn">登录</button>
+					</div>
+				</div>
+			</div>
+	</body>
+</html>

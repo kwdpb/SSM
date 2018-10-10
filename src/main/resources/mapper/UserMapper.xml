@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.kw.dao.UserDao" >
+	
+	<select id="loginUser" parameterType="String" resultType="com.kw.entity.User">
+		select password
+		from user
+		where username=#{username} 
+	</select>
+
+	<select id="getAllUser" resultType="com.kw.entity.User">
+		select * from user
+	</select>
+
+	<insert id="insertUser" parameterType="com.kw.entity.User" useGeneratedKeys="true" keyProperty="userid">
+		insert into
+		user(username,password)
+		values(#{username,jdbcType=VARCHAR},#{password,jdbcType=VARCHAR})
+	</insert>
+</mapper>

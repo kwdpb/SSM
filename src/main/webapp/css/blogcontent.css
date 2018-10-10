@@ -1,0 +1,84 @@
+
+
+      #content{
+        width:100%;
+        background-color:white;
+      }
+      #blogcontent{
+        width:90%;
+        margin:0px auto;
+        position: relative;
+        height: 100%;
+        background-color:white;
+      }
+      #blogcenter{
+        width:75%;
+        height:100%;
+        float:left;
+        background-color:#efefef;
+      }
+      .detail{
+        width:100%;
+        height:90%;
+      }
+      #aside{
+        width:24%;
+        height: 800px;
+        margin-left:0.9em;
+        border-radius: 6px;
+        float:left;
+        background-color:#efefef;
+      }
+
+
+      #comment{
+        width:100%;
+        height:20%;
+        background-color: white;
+      }
+      #comment div{
+        float:left;
+        margin:1em 1em;
+      }
+      .comment-img img{
+        width:120px;
+        height:110px;
+        border-radius: 65px;
+        border:2px solid gray;
+      } 
+      .comment-con p{
+        margin-bottom:0px;
+      }
+      .comment-con .comment-detail{
+        margin-top:0.5em;
+        font-size:17px;
+      }
+
+
+      /* fix图标样式 */
+      #fix-btn{
+        position:fixed;
+        z-index:1024;
+        bottom:5%;
+        right:2%;
+        font-size: 24px;
+        background-color: white;
+        width:40px;
+        border:1px solid #eee;
+      }
+      #fix-btn a{
+        display: inline-block;
+        width:40px;
+        height:40px;
+        text-align: center;
+        color:gray;
+      }
+      #fix-btn a i{
+        padding-top: 0.3em;
+      }
+      .go-up,.thumb,.feedback,.wechat,.sina{
+        border-bottom: 1px solid #eee;
+      }
+      #fix-btn a:hover{
+        color:#316db7;
+      }

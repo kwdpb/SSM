@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.kw.dao.BlogDao" >
+	
+  <sql id="bloginfo">
+  	blog.blogid,title,pubtime,clickrate,category.categoryid,categoryname
+  </sql>
+  <select id="getBlogById" parameterType="int" resultType="com.kw.entity.Blog">
+  	select *
+  	from blog
+  	where blogid=#{id}
+  </select>
+	
+  <select id="getPageBlog" parameterType="java.util.Map" resultType="com.kw.entity.Blog">
+  	select 
+  		<include refid="bloginfo"></include>
+  	from blog,category
+  	<choose>
+	  	<when test="#{categoryid}!=null">
+		  	where blog.categoryid=#{categoryid} and blog.categoryid=category.categoryid
+		  	limit #{startindex},#{endindex}
+	  	</when>
+	  	<otherwise>
+		  	where blog.categoryid=category.categoryid
+		  	limit #{startindex},#{endindex}
+	  	</otherwise>
+  	</choose>
+  </select>
+	
+  <select id="getAllBlog" parameterType="java.util.Map" resultType="com.kw.entity.Blog">
+  	select 
+  	<include refid="bloginfo"></include>
+  	from blog,category
+  	where blog.categoryid=category.categoryid
+  	limit #{startindex},#{endindex}
+  </select>
+  
+  <insert id="insertBlog" parameterType="com.kw.entity.Blog" useGeneratedKeys="true" keyProperty="blogid">
+  	insert into 
+  	blog(title,content,pubtime,categoryid)
+  	values(#{title},#{content},#{pubtime,jdbcType=DATE},#{categoryid})
+  </insert>
+  
+  <update id="updateBlog" parameterType="com.kw.entity.Blog" >
+  
+  </update>
+  
+  <delete id="deleteBlog" parameterType="int">
+  	delete from blog
+  	where blogid=#{id}
+  </delete>
+  
+  <!-- 获得博客总数，调用存储过程 -->
+  <select id="getBlogCount" parameterType="java.util.Map" statementType="CALLABLE" resultType="int">
+  	call blog_count(
+  	#{count,mode=OUT,jdbcType=INTEGER},
+  	#{categoryid,jdbcType=INTEGER}
+  	)
+  </select>
+  
+  
+  <select id="getHotBlog" parameterType="java.util.Map" resultType="com.kw.entity.Blog">
+  	select blogid,title,clickrate
+  	from blog
+	order by clickrate desc
+  	limit 0,5
+  </select>
+
+  <select id="getNewBlog" parameterType="java.util.Map" resultType="com.kw.entity.Blog">
+  	select blogid,title
+  	from blog
+  	order by pubtime desc
+  	limit 0,5
+  </select>
+  
+  <select id="getBlogContent" parameterType="int" resultType="com.kw.entity.Blog">
+  	select *
+  	from blog
+  	where blogid=#{id}
+  </select>
+  
+  <select id="getSearchBlog" parameterType="java.util.Map" resultType="com.kw.entity.Blog">
+  	  	select 
+  		<include refid="bloginfo"></include>
+  		from blog,category
+	  	where title like "%"#{keyword}"%" and  blog.categoryid=category.categoryid
+	  	limit #{startindex},#{endindex} 
+  </select>
+  
+  <update id="pageView" parameterType="int">
+  		update blog
+  		set clickrate=clickrate+1
+  		where blogid=#{id}
+  </update>
+  
+  <select id="getType" resultType="com.kw.entity.Blog">
+  		select
+  			categoryid,categoryname
+  		from category
+  </select>
+  
+  <select id="getSearchCount" parameterType="String" resultType="int">
+  		select count(blog.blogid)
+  		from blog,category
+	  	where blog.categoryid=category.categoryid and title like "%"#{keyword}"%"
+  </select>
+</mapper>
